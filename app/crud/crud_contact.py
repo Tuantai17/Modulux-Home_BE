@@ -59,17 +59,26 @@ def soft_delete_contact(db: Session, contact_id: int, deleted_by: int):
     return obj
 
 
-def get_contacts_count(db: Session, enquiry_type: Optional[str] = None):
+def get_contacts_count(db: Session, enquiry_type: Optional[str] = None, status: Optional[str] = None):
     """Đếm số lượng contacts theo loại."""
     query = db.query(Contact).filter(Contact.delete_at == None)
     if enquiry_type:
         query = query.filter(Contact.enquiry_type == enquiry_type)
+    if status:
+        query = query.filter(Contact.status == status)
     return query.count()
 
 
 # ─── Subscriber ──────────────────────────────────────────────────
 def get_subscribers(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(Subscriber).filter(Subscriber.delete_at == None).offset(skip).limit(limit).all()
+    return (
+        db.query(Subscriber)
+        .filter(Subscriber.delete_at == None)
+        .order_by(desc(Subscriber.created_at), desc(Subscriber.id))
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
 
 
 def get_subscriber(db: Session, subscriber_id: int):

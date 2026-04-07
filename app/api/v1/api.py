@@ -17,6 +17,7 @@ from app.api.v1.endpoints import (
     contacts,
     subscribers,
     menus,
+    search,
     blogs,
     blog_admin,
 )
@@ -39,5 +40,6 @@ api_router.include_router(partners.router)
 api_router.include_router(contacts.router)
 api_router.include_router(subscribers.router)
 api_router.include_router(menus.router)
+api_router.include_router(search.router)
 api_router.include_router(blogs.router)
 api_router.include_router(blog_admin.router)

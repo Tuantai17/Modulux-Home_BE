@@ -42,6 +42,10 @@ def get_stats(
         "home_general": get_contacts_count(db, enquiry_type="home_general"),
         "general": get_contacts_count(db, enquiry_type="general"),
         "project": get_contacts_count(db, enquiry_type="project"),
+        "new": get_contacts_count(db, status="new"),
+        "read": get_contacts_count(db, status="read"),
+        "replied": get_contacts_count(db, status="replied"),
+        "archived": get_contacts_count(db, status="archived"),
     }
 
 
